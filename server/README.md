@@ -1,1 +1,1 @@
-# server created using nodejs, express and socket.io
+# Server created using nodejs, express and socket.io
