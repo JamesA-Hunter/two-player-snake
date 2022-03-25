@@ -1,1 +1,1 @@
-##Client made with React, Bootstrap and Socket.io**
+# Client made with React, CSS , Bootstrap and Socket.io
