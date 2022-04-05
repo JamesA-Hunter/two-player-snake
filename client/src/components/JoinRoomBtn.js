@@ -31,20 +31,8 @@ function GenerateRoomBtn(props) {
         <label>join room</label>
         <input onChange={evt => props.handler(evt.target.value)} type="text"></input>
         <button onClick={joinRoom}>Go</button>
-        <Alert exists={props.exists}/>
         </>
     );
-}
-
-//if room isnt found notify user
-function Alert(props) {
-
-    if(props.exists == false){
-    return <p>This room does not exist</p>;
-    }
-    else {
-    return <p></p>;
-    }
 }
 
 export default GenerateRoomBtn;

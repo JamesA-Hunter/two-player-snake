@@ -5,7 +5,7 @@ import JoinRoomBtn from "../components/JoinRoomBtn";
 function Home() {
     const [code, setCode] = useState("000000");
     const [inputCode, setInputCode] = useState();
-    const [roomExists, setExists] = useState(true);
+    const [roomExists, setExists] = useState(null);
     
     function changeCode(theCode) {
         setCode(theCode.generatedCode)
@@ -19,13 +19,14 @@ function Home() {
         setExists(doesExist.roomExists)
     }
 
+
     return (
     <>
     <h1>home</h1>
     <GenerateRoomBtn handler={changeCode}/>
     <JoinRoomBtn exists={doesExist} code={inputCode} handler={changeInput}/>
     <h1>{code}</h1>
-    <h1>{roomExists.toString()}</h1>
+    <h1>{roomExists == false ? "Room does not exist" : ""}</h1>
     </>
     );
 }
