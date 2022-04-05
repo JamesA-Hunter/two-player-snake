@@ -1,29 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 
-class GenerateRoomBtn extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            generatedCode: "000000"
-        };
+function GenerateRoomBtn(props) {
 
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
+    const generateRoom = () => {
         fetch("http://localhost:3001/api/createRoom")
-            .then(response => response.json())
-            .then(data => {this.setState({generatedCode: data})})
+        .then(response => response.json())
+        .then(data => {props.handler({generatedCode: data})})
     }
 
-    render() {
-        return (
-            <>
-            <button onClick={this.handleClick}>Generate Room</button>
-            <h1>{this.state.generatedCode}</h1>
-            </>
-        );
-    }
+    return (
+        <>
+        <button onClick={generateRoom}>Generate Room</button>
+        </>
+    );
+
 }
 
 export default GenerateRoomBtn;
