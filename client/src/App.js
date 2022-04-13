@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,6 +11,23 @@ import Leaderboard from './routes/Leaderboard';
 import './App.css';
 
 function App() {
+  const [code, setCode] = useState("000000");
+  const [inputCode, setInputCode] = useState();
+  const [roomExists, setExists] = useState(null);
+  
+  function changeCode(theCode) {
+      setCode(theCode.generatedCode)
+  }
+
+  function changeInput(theInput) {
+      setInputCode(theInput)
+  }
+
+  function doesExist(doesExist){
+      setExists(doesExist.roomExists)
+  }
+
+
   return (
     <>
     <div className="App">
@@ -31,9 +48,9 @@ function App() {
 
       <main>
         <Routes>
-          <Route exact path="/" element={<Home/>}/>
+          <Route exact path="/" element={<Home changeCode={changeCode} doesExist={doesExist} inputCode={inputCode} changeInput={changeInput} code={code} roomExists={roomExists} />}/>
           <Route exact path="/Leaderboard" element={<Leaderboard/>}/>
-          <Route exact path="/Room" element={<Room/>}/>
+          <Route exact path="/Room/:code" element={<Room/>}/>
         </Routes>
       </main>
       </Router>

@@ -1,17 +1,13 @@
 import React from "react";
-import { io } from "socket.io-client";
 
 function GenerateRoomBtn(props) {
 
-
     const joinRoom = () => { //asks server if room exists
-        fetch("http://localhost:3001/api/getRoom/" + props.code)
+        fetch("http://localhost:3001/api/getRoom/" + props.inputCode)
         .then(response => response.json())
         .then(data => {
-            props.exists({roomExists: data})
-            //this.createSocket(data)
+            props.doesExist({roomExists: data})
         })
-
     }
 
     /*
@@ -29,7 +25,7 @@ function GenerateRoomBtn(props) {
     return (
         <>
         <label>join room</label>
-        <input onChange={evt => props.handler(evt.target.value)} type="text"></input>
+        <input onChange={evt => props.changeInput(evt.target.value)} type="text"></input>
         <button onClick={joinRoom}>Go</button>
         </>
     );

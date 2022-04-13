@@ -1,32 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import GenerateRoomBtn from "../components/GenerateRoomBtn";
 import JoinRoomBtn from "../components/JoinRoomBtn";
 
-function Home() {
-    const [code, setCode] = useState("000000");
-    const [inputCode, setInputCode] = useState();
-    const [roomExists, setExists] = useState(null);
-    
-    function changeCode(theCode) {
-        setCode(theCode.generatedCode)
-    }
-
-    function changeInput(theInput) {
-        setInputCode(theInput)
-    }
-
-    function doesExist(doesExist){
-        setExists(doesExist.roomExists)
-    }
+function Home(props) {
 
 
     return (
     <>
     <h1>home</h1>
-    <GenerateRoomBtn handler={changeCode}/>
-    <JoinRoomBtn exists={doesExist} code={inputCode} handler={changeInput}/>
-    <h1>{code}</h1>
-    <h1>{roomExists == false ? "Room does not exist" : ""}</h1>
+    <GenerateRoomBtn handler={props.changeCode}/>
+    <JoinRoomBtn {...props}/>
+    <h1>{props.code}</h1>
+    <h1>{props.roomExists === false ? "Room does not exist" : ""}</h1>
     </>
     );
 }
