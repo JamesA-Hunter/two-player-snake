@@ -10,7 +10,7 @@ function GenerateRoomBtn(props) {
 
     return (
         <>
-        <button onClick={generateRoom}>Generate Room</button>
+        <button onClick={generateRoom} className="rounded-full bg-blue-300 hover:bg-blue-600 px-2 my-2">Generate Room</button>
         </>
     );
 

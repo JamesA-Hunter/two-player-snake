@@ -1,9 +1,9 @@
-# Client made with React, CSS , Bootstrap and Socket.io
+# Client made with React, Tailwindcss and Socket.io
 
 ## To do
 
 ### Rework component logic and convert joinRoomBtn and createRoom to function components
-### add styling with bootstrap
-### create route to room
+### add styling with tailwindcss
 ### rewrite joinRoomBtn
 ### begin implementing game skeleton
+### finalize css design

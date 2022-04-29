@@ -1,2 +1,2 @@
 # two-player-snake
-Following my javascript snake clone i am rebuilding it using React, Node and using websockets with socket.io
+Following my javascript snake clone i am rebuilding it using React, tailwind css, Node and using websockets with socket.io

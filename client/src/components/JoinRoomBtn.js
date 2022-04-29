@@ -43,9 +43,11 @@ function GenerateRoomBtn(props) {
 
     return (
         <>
-        <label>join room</label>
-        <input onChange={evt => props.changeInput(evt.target.value)} type="text"></input>
-        <button onClick={joinRoom}>Go</button>
+        <label className="">Join room</label>
+        <div className="space-x-1 rounded bg-blue-300 hover:bg-blue-600">
+        <input className="" onChange={evt => props.changeInput(evt.target.value)} type="text"></input>
+        <button onClick={joinRoom} className="px-2 text-center">Go</button>
+        </div>
         </>
     );
 }

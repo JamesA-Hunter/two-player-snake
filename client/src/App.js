@@ -35,11 +35,11 @@ function App() {
       <Router>
       <header>
         <nav>
-          <ul>
-            <li>
+          <ul className='flex flex-row bg-black'>
+            <li className='pl-2 text-white'>
               <Link to="/">Home</Link>
             </li>
-            <li>
+            <li className='pl-2 text-white'>
               <Link to="/Leaderboard">Leaderboard</Link>
             </li>
           </ul>
