@@ -15,7 +15,6 @@ class Rooms{
         else{ //check for duplicate room codes and if detected create another code
             while(isDuplicate == true){
             code = Math.floor(Math.random()*1000000)
-                for(i=0;i<this.rooms.length;i++){
                     if (this.searchRooms(code) == true){
                         isDuplicate = true
                     }
@@ -24,7 +23,6 @@ class Rooms{
                     }
                 }
             }
-        }
 
         let room = new Room(code)
         this.rooms.push(room)
