@@ -10,11 +10,15 @@ const options = {
     origins: ["http://localhost:3000", "http://localhost:3001"]
 };
 const io = require('socket.io')(server, options)
-const rooms = []
-const Room = require('./Room')
+
+const rooms = require('./Rooms')
+const Rooms = new rooms()
 
 io.on('connection', socket => { 
     console.log("socket created")
+    socket.on('code', (data) => {
+        console.log(data)
+    })
 })
 
 app.get('/', (req, res) => {
@@ -22,28 +26,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/createRoom', (req, res) => {
-    let code = 0
-    let isDuplicate = true
-
-    if(rooms.length == 0){ //if rooms array is empty skip duplicate check
-        code = Math.floor(Math.random()*1000000)
-    }
-    else{ //check for duplicate room codes and if detected create another code
-        while(isDuplicate == true){
-        code = Math.floor(Math.random()*1000000)
-            for(i=0;i<rooms.length;i++){
-                if (rooms[i].code == code){
-                    isDuplicate = true
-                }
-                else {
-                isDuplicate = false
-                }
-            }
-        }
-    }
-
     //add room to rooms[] and respond with the code
-    rooms.push(new Room(code))
+    let code = Rooms.createRoom()
     res.setHeader('content-type', 'application/json')
     res.send(JSON.stringify(code))
     res.end();
@@ -51,26 +35,10 @@ app.get('/api/createRoom', (req, res) => {
 })
 
 app.get('/api/getRoom/:code', (req, res) => {
-    let code = req.params.code;
-    let doesExist = false; // does room exist
-
+    let exists = Rooms.searchRooms(req.params.code)
     res.setHeader('content-type', 'application/json')
-
-    for(i=0;i<rooms.length;i++){ // set doesExist to true if room found
-        if(rooms[i].code == code){
-            doesExist = true;
-        }
-    }
-
-    if(doesExist == null){ //return false
-        res.send(JSON.stringify(doesExist))
-        console.log(doesExist)
-    }
-    else { //return false
-        res.send(JSON.stringify(doesExist))
-        console.log(doesExist)
-    }
-
+    console.log(exists)
+    res.send(JSON.stringify(exists))
     res.end();
 
 })
