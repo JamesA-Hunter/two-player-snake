@@ -8,7 +8,7 @@ function Home(props) {
     //breaks at 630px
     return (
     <>
-    <div className="flex flex-col items-center justify-center mx-48 mt-4 bg-slate-400 rounded-lg shadow-md">
+    <div className="flex flex-col items-center justify-center mx-[20%] mt-4 bg-slate-400 rounded-lg shadow-md">
     <div className="w-[100%] px-0 ">
     <h1 className="bg-purple-400 rounded-t-lg text-center">Home</h1>
     </div>
