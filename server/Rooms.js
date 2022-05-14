@@ -32,24 +32,53 @@ class Rooms{
     searchRooms(code) {
         let doesExist = false;
 
-        /*
-        for(i=0;i<this.rooms.length;i++){ // set doesExist to true if room found
+        
+        for(let i=0;i<this.rooms.length;i++){ // set doesExist to true if room found
             if(this.rooms[i].code == code){
                 doesExist = true;
             }
         }
-        */
-
-        this.rooms.forEach(o => {
-            if(o.code == code){
-                doesExist = true;
-            }
-        })
-    
-        console.log(this.rooms)
-        console.log(code)
+        
+        //console.log(this.rooms)
+        //console.log(code)
         return doesExist;
     }
+
+    getIndex(code){
+        let index = null;
+
+        for(let i=0;i<this.rooms.length;i++){ // set doesExist to true if room found
+            if(this.rooms[i].code == code){
+                index = i;
+            }
+        }
+        
+        console.log(index)
+        return index;
+    }
+
+    addPlayer(code, id){
+        let index = this.getIndex(code)
+        let name = this.rooms[index].addPlayer(id)
+        //console.log(player)
+        return name
+        }
+
+    removePlayer(id, room){
+        //get index of room
+        let i = this.getIndex(room)
+        this.rooms[i].removePlayer(id)
+    }
+
+    searchForPlayerInRooms(id){
+        for(let i = 0; i< this.rooms.length; i++){
+            if(this.rooms[i].getPlayer(id) !== false){
+                console.log("found");
+                return this.rooms[i].code
+            }
+        }
+    }
+
 }
 
 module.exports = Rooms;

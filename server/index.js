@@ -14,10 +14,42 @@ const io = require('socket.io')(server, options)
 const rooms = require('./Rooms')
 const Rooms = new rooms()
 
-io.on('connection', socket => { 
+io.on('connection', (socket) => { 
     console.log("socket created")
-    socket.on('code', (data) => {
-        console.log(data)
+    socket.on('code', (code) => {
+        let roomID = code.toString()
+        //returns false if room full
+        let player = Rooms.addPlayer(code, socket.id)
+        let reply = ""
+        //console.log(socket.rooms)
+        //console.log(roomID)
+        //console.log(socket.id)
+        //console.log(socket.adapter.rooms.get(roomID).size)
+
+        //if the room is full
+        if(player == false){
+            //console.log("error too many players")
+            reply = "error too many players"
+            io.in(socket.id).emit("msg", reply)
+        }
+        else{
+            socket.join(roomID)
+            reply = player
+        }
+
+        io.in(socket.id).emit("msg", reply)
+    })
+
+    socket.on('disconnect', (reason) => {
+        console.log(socket.id + " " + reason)
+        //remove player from room with same id
+        //Rooms.removePlayerFromRooms(socket.id)
+        let theRoom = Rooms.searchForPlayerInRooms(socket.id)
+        console.log(theRoom)
+        if(theRoom !== false){
+            Rooms.removePlayer(socket.id, theRoom)
+        }
+
     })
 })
 
@@ -30,16 +62,16 @@ app.get('/api/createRoom', (req, res) => {
     let code = Rooms.createRoom()
     res.setHeader('content-type', 'application/json')
     res.send(JSON.stringify(code))
-    res.end();
+    res.end()
     console.log("created")
 })
 
 app.get('/api/getRoom/:code', (req, res) => {
     let exists = Rooms.searchRooms(req.params.code)
     res.setHeader('content-type', 'application/json')
-    console.log(exists)
+    //console.log(exists)
     res.send(JSON.stringify(exists))
-    res.end();
+    res.end()
 
 })
 
