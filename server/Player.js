@@ -4,6 +4,9 @@ class Player{
     this.name = name;
     }
 
+    changeName(name){
+        this.name = name;
+    }
     /*
     get id(){
         return this.id

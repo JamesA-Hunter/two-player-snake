@@ -44,6 +44,12 @@ class Rooms{
         return doesExist;
     }
 
+    getRoom(code){
+        let index = this.getIndex(code)
+        return this.rooms[index]
+
+    }
+
     getIndex(code){
         let index = null;
 
@@ -67,7 +73,11 @@ class Rooms{
     removePlayer(id, room){
         //get index of room
         let i = this.getIndex(room)
+        if(!id){
+
+        }
         this.rooms[i].removePlayer(id)
+        return true
     }
 
     searchForPlayerInRooms(id){
@@ -77,6 +87,7 @@ class Rooms{
                 return this.rooms[i].code
             }
         }
+        return false
     }
 
 }

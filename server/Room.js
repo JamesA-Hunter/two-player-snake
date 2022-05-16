@@ -25,11 +25,14 @@ class Room{
         this.players.push(player);
         this.count++;
         console.log("all players: " + this.players);
+        return name
     }
 
     removePlayer(id){
         this.players = this.players.filter(player => player.id !== id);
         this.count--;
+        this.sortRoom();
+        return true
     }
 
     getPlayer(id){
@@ -43,8 +46,14 @@ class Room{
         return false;
     }
 
+    getPlayers(){
+        return this.players;
+    }
+
     sortRoom(){
-        
+        for(let i = 0; i < this.players.length; i++){
+            this.players[i].changeName(i + 1)
+        }
     }
 
     get code() {

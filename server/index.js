@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
         }
         else{
             socket.join(roomID)
-            reply = player
+            reply = player.toString()
         }
 
         io.in(socket.id).emit("msg", reply)
@@ -44,10 +44,21 @@ io.on('connection', (socket) => {
         console.log(socket.id + " " + reason)
         //remove player from room with same id
         //Rooms.removePlayerFromRooms(socket.id)
-        let theRoom = Rooms.searchForPlayerInRooms(socket.id)
-        console.log(theRoom)
-        if(theRoom !== false){
-            Rooms.removePlayer(socket.id, theRoom)
+        console.log("socket id disconnecting: " + socket.id)
+        let roomCode = Rooms.searchForPlayerInRooms(socket.id)
+        if(roomCode == false){
+            console.log("done nothing")
+            return true;
+        }
+        console.log(roomCode)
+        if(roomCode !== false){
+            if(Rooms.removePlayer(socket.id, roomCode) == true){
+                let room = Rooms.getRoom(roomCode);
+                let players = room.getPlayers()
+                console.log(players)
+                //io.in(roomCode).emit
+                //for(let i = 0;i< players.length)
+            }
         }
 
     })
