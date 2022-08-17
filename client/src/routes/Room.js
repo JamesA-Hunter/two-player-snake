@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 function Room (props) {
     
     const [message, setmessage] = useState(" ");
+    const [playerNo, setPlayerNo] = useState(" ");
     const location = useLocation(); //location.state.code
     const socket = useRef()
 
@@ -18,7 +19,7 @@ function Room (props) {
         //server repsonse
         socket.current.on("msg", (msg) => {
             console.log(msg)
-            changeMessage(msg)
+            changePlayerNo(msg)
         })
 
         //send room code and userid to server
@@ -27,10 +28,17 @@ function Room (props) {
             socket.current.emit("code", location.state.code)
         })
 
+        //server response when a player disconnects and changes player name
+        socket.current.on("playerDisconnect", (msg) => {
+            changePlayerNo(msg)
+            changeMessage("a player has disconnected you are now player: " + msg)
+        })
+
         //cleanup function
         return () => {
             socket.current.off("msg");
             socket.current.off("connect");
+            socket.current.off("playerDisconnect");
             socket.current.disconnect();
          }
 
@@ -40,10 +48,15 @@ function Room (props) {
         setmessage(msg);
     }
 
+    function changePlayerNo(num) {
+        setPlayerNo(num)
+    }
+
     return(
         <>
         <h1>Room</h1>
         <h1>{location.state.code}</h1>
+        <h1>{playerNo}</h1>
         <p>{message}</p>
         </>
     )

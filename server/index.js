@@ -5,11 +5,19 @@ const express = require('express')
 const app = express()
 const server = require('http').createServer(app)
 const port = 3001
-//socket.io
+//cors
+const cors = require('cors')
 const options = {
     origins: ["http://localhost:3000", "http://localhost:3001"]
 };
-const io = require('socket.io')(server, options)
+app.use(cors({options}))
+//socketio
+const io = require('socket.io')(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET"]
+    }
+});
 
 const rooms = require('./Rooms')
 const Rooms = new rooms()
@@ -47,7 +55,6 @@ io.on('connection', (socket) => {
         console.log("socket id disconnecting: " + socket.id)
         let roomCode = Rooms.searchForPlayerInRooms(socket.id)
         if(roomCode == false){
-            console.log("done nothing")
             return true;
         }
         console.log(roomCode)
@@ -55,9 +62,11 @@ io.on('connection', (socket) => {
             if(Rooms.removePlayer(socket.id, roomCode) == true){
                 let room = Rooms.getRoom(roomCode);
                 let players = room.getPlayers()
-                console.log(players)
+                console.log("players array: " + players)
                 //io.in(roomCode).emit
-                //for(let i = 0;i< players.length)
+                for(let i = 0;i < players.length; i++){
+                    io.in(players[i].id).emit("playerDisconnect", players[i].name)
+                }
             }
         }
 

@@ -5,13 +5,17 @@ class Room{
     this.roomCode = theCode;
     this.players = [];
     this.count = 1;
+    this.game = null;
     }
 
     addPlayer(id){
+
         let name = null
 
+        if(this.game == null){
+
             if(this.count > 2){
-                name = false
+                name == false
                 return name;
             }
             else if(this.count == 1){
@@ -25,6 +29,7 @@ class Room{
         this.players.push(player);
         this.count++;
         console.log("all players: " + this.players);
+        }
         return name
     }
 

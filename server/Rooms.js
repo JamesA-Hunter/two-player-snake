@@ -84,7 +84,7 @@ class Rooms{
         for(let i = 0; i< this.rooms.length; i++){
             if(this.rooms[i].getPlayer(id) !== false){
                 console.log("found");
-                return this.rooms[i].code
+                return this.rooms[i].code;
             }
         }
         return false
