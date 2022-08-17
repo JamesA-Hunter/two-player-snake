@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
     socket.on('code', (code) => {
         let roomID = code.toString()
         //returns false if room full
-        let player = Rooms.addPlayer(code, socket.id)
+        let joinStatus = Rooms.addPlayer(code, socket.id)
         let reply = ""
         //console.log(socket.rooms)
         //console.log(roomID)
@@ -35,14 +35,19 @@ io.on('connection', (socket) => {
         //console.log(socket.adapter.rooms.get(roomID).size)
 
         //if the room is full
-        if(player == false){
+        if(joinStatus == false){
             //console.log("error too many players")
             reply = "error too many players"
             io.in(socket.id).emit("msg", reply)
         }
+        else if(joinStatus == 3){
+            //console.log("error, game in progress")
+            reply = "error, game in progress"
+            io.in(socket.id).emit("msg", reply)
+        }
         else{
             socket.join(roomID)
-            reply = player.toString()
+            reply = joinStatus.toString()
         }
 
         io.in(socket.id).emit("msg", reply)

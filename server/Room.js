@@ -30,6 +30,9 @@ class Room{
         this.count++;
         console.log("all players: " + this.players);
         }
+        else if(this.game != null){
+            return 3;
+        }
         return name
     }
 
