@@ -1,11 +1,13 @@
 import React, { Component, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
+import SettingsForm from "../components/SettingsForm";
 
 function Room (props) {
     
     const [message, setmessage] = useState(" ");
     const [playerNo, setPlayerNo] = useState(" ");
+    const [settings, setSettings] = useState([]);
     const location = useLocation(); //location.state.code
     const socket = useRef()
 
@@ -52,12 +54,18 @@ function Room (props) {
         setPlayerNo(num)
     }
 
+    function setSettingsForm(settings){
+        setSettings(settings)
+        console.log(settings)
+    }
+
     return(
         <>
         <h1>Room</h1>
         <h1>{location.state.code}</h1>
         <h1>{playerNo}</h1>
         <p>{message}</p>
+        <SettingsForm setSettingsForm={setSettingsForm} playerNo={playerNo}></SettingsForm>
         </>
     )
 }
