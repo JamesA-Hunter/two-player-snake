@@ -19,6 +19,9 @@ const io = require('socket.io')(server, {
     }
 });
 
+//middlewares
+app.use(express.json());
+
 const rooms = require('./Rooms')
 const Rooms = new rooms()
 
@@ -97,6 +100,16 @@ app.get('/api/getRoom/:code', (req, res) => {
     //console.log(exists)
     res.send(JSON.stringify(exists))
     res.end()
+
+})
+
+app.post('/api/postForm/:code', (req, res) => {
+
+    //add data sanitisation here
+
+    //add to game settings of room
+    res.end('response')
+    console.log(req.body)
 
 })
 
