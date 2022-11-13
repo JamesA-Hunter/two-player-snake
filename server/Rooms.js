@@ -66,7 +66,7 @@ class Rooms{
     addPlayer(code, id){
         let index = this.getIndex(code)
         let name = this.rooms[index].addPlayer(id)
-        //console.log(player)
+        console.log("name = " + name)
         return name
         }
 

@@ -15,14 +15,14 @@ class Room{
         if(this.game == null){
 
             if(this.count > 2){
-                name == false
+                name = 4 //too many players
                 return name;
             }
             else if(this.count == 1){
-                name = 1
+                name = 1 //player 1
             }
             else if(this.count == 2){
-                name = 2
+                name = 2 //player 2
             }
 
         let player = new Player(id, name);
@@ -31,7 +31,7 @@ class Room{
         console.log("all players: " + this.players);
         }
         else if(this.game != null){
-            return 3;
+            return 3; //game in progress
         }
         return name
     }

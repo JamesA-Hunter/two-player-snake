@@ -6,6 +6,9 @@ function GenerateRoomBtn(props) {
         fetch("http://localhost:3001/api/createRoom")
         .then(response => response.json())
         .then(data => {props.handler({generatedCode: data})})
+        .catch(function(){
+            props.handler({generatedCode: "Error Connecting to server"})
+        })
     }
 
     return (

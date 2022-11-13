@@ -23,6 +23,7 @@ const io = require('socket.io')(server, {
 app.use(express.json());
 
 const rooms = require('./Rooms')
+const { join } = require('path')
 const Rooms = new rooms()
 
 io.on('connection', (socket) => { 
@@ -35,17 +36,18 @@ io.on('connection', (socket) => {
         //console.log(socket.rooms)
         //console.log(roomID)
         //console.log(socket.id)
-        //console.log(socket.adapter.rooms.get(roomID).size)
+        //console.log(socket.adapter.rooms.get(roomID))
+        console.log(joinStatus)
 
         //if the room is full
-        if(joinStatus == false){
+        if(joinStatus == 4){
             //console.log("error too many players")
-            reply = "error too many players"
+            reply = "4"
             io.in(socket.id).emit("msg", reply)
         }
         else if(joinStatus == 3){
             //console.log("error, game in progress")
-            reply = "error, game in progress"
+            reply = "3"
             io.in(socket.id).emit("msg", reply)
         }
         else{
@@ -53,6 +55,7 @@ io.on('connection', (socket) => {
             reply = joinStatus.toString()
         }
 
+        //console.log(reply)
         io.in(socket.id).emit("msg", reply)
     })
 

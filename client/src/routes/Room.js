@@ -9,7 +9,7 @@ function Room (props) {
     const [playerNo, setPlayerNo] = useState(" ");
     const [settings, setSettings] = useState([]);
     const location = useLocation(); //location.state.code
-    const socket = useRef()
+    const socket = useRef();
 
     //connect to room using the code passed from home
     useEffect(() => {    
@@ -22,6 +22,12 @@ function Room (props) {
         socket.current.on("msg", (msg) => {
             console.log(msg)
             changePlayerNo(msg)
+            if(msg == 4){
+                changeMessage(4)
+            }
+            if(msg == 3){
+                changeMessage(3)
+            }
         })
 
         //send room code and userid to server
@@ -56,9 +62,39 @@ function Room (props) {
 
     function setSettingsForm(settings){
         setSettings(settings)
+        postSettings(settings)
         console.log(settings)
     }
 
+    function postSettings(form){
+
+        let data = JSON.stringify(form)
+        let response = fetch("http://localhost:3001/api/postForm/" + location.state.code, {
+            method: 'post',
+            body: data,
+            headers:{
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res => res.data)
+        console.log(response)
+    }
+
+    if(message == 4){
+        return(
+            <>
+            <p>Error: Too Many players</p>
+            </>
+        )
+    }
+    else if(message == 3){
+        return(
+            <>
+            <p>Error: Game in progress</p>
+            </>
+        )
+    }
+    else{
     return(
         <>
         <h1>Room</h1>
@@ -68,6 +104,7 @@ function Room (props) {
         <SettingsForm setSettingsForm={setSettingsForm} playerNo={playerNo}></SettingsForm>
         </>
     )
+    }
 }
 
 export default Room;

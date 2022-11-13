@@ -6,6 +6,5 @@
 ### handle data inputs from clients
 ### process game loop and send updates to clients
 ### store game in mongodb database (not essential)
-### accept posted settings form
 ### use settings to set parameters to initialise game
 ### sanitise settings form posted

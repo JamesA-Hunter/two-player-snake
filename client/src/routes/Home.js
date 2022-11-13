@@ -12,7 +12,7 @@ function Home(props) {
     <div className="w-[100%] px-0 ">
     <h1 className="bg-purple-400 rounded-t-lg text-center">Home</h1>
     </div>
-    <JoinRoomBtn {...props}/>
+    <JoinRoomBtn handler={props.changeCode} {...props}/>
     <h1>{props.roomExists === false ? "Room does not exist" : ""}</h1>
     <GenerateRoomBtn handler={props.changeCode}/>
     <p>{props.code === "000000" ? "" : props.code}</p>

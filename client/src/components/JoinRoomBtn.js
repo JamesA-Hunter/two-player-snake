@@ -16,6 +16,9 @@ function GenerateRoomBtn(props) {
             props.doesExist({roomExists: data})
             redirect({roomExists: data})
         })
+        .catch(function(){
+            props.handler({generatedCode: "Error Connecting to server"})
+        })
         }
     }
 
