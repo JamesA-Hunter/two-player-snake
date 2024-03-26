@@ -1,4 +1,5 @@
 const Player = require('./Player')
+const Game = require('./Game')
 
 class Room{
     constructor(theCode){
@@ -62,6 +63,11 @@ class Room{
         for(let i = 0; i < this.players.length; i++){
             this.players[i].changeName(i + 1)
         }
+    }
+
+    createGame(settings){ //settings array passed from postform
+        this.game = new Game(settings) // array passed to game object
+        console.log(this.game.boardSize + ' ' + this.game.GameSpeed)
     }
 
     get code() {

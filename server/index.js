@@ -71,7 +71,7 @@ io.on('connection', (socket) => {
         console.log(roomCode)
         if(roomCode !== false){
             if(Rooms.removePlayer(socket.id, roomCode) == true){
-                let room = Rooms.getRoom(roomCode);
+                let room = Rooms.getRoom(roomCode)
                 let players = room.getPlayers()
                 console.log("players array: " + players)
                 //io.in(roomCode).emit
@@ -108,9 +108,16 @@ app.get('/api/getRoom/:code', (req, res) => {
 
 app.post('/api/postForm/:code', (req, res) => {
 
-    //add data sanitisation here
+    let code = req.params.code
+    let exists = Rooms.searchRooms(code)
+    if (exists == false){
+        return 0
+    }
+    let settings = req.body //sanitize this before passing
 
     //add to game settings of room
+    let room = Rooms.getRoom(code)
+    room.createGame(settings)
     res.end('response')
     console.log(req.body)
 
