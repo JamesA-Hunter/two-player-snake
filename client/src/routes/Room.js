@@ -2,6 +2,7 @@ import React, { Component, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
 import SettingsForm from "../components/SettingsForm";
+import ReadyUpBtn from "../components/ReadyUpBtn";
 
 function Room (props) {
     
@@ -77,7 +78,7 @@ function Room (props) {
             }
         })
         .then(res => res.data)
-        console.log(response)
+        console.log(response) //make this hide the submit button when a successful response is recieved
     }
 
     if(message == 4){
@@ -101,7 +102,11 @@ function Room (props) {
         <h1>{location.state.code}</h1>
         <h1>{playerNo}</h1>
         <p>{message}</p>
+
+        {/* add conditional statements here -> if form has been submitted, hide form and show ready up button */}
         <SettingsForm setSettingsForm={setSettingsForm} playerNo={playerNo}></SettingsForm>
+        <ReadyUpBtn></ReadyUpBtn>
+
         </>
     )
     }
